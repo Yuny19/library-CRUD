@@ -10,7 +10,7 @@ class UserController {
             })
             .catch((err) => {
                 res.status(400).json({
-                    message: 'please check your entry data'
+                    message: err.message
                 })
             })
     }
@@ -28,18 +28,22 @@ class UserController {
             })
             .catch((err) => {
                 res.status(400).json({
-                    message: 'check data'
+                    message: err.message
                 });
             })
     }
 
     static delete(req, res) {
         Users.findByIdAndRemove({ _id: req.params.id })
-            .then(data => {
-                res.status(200).json('delete success')
+            .then(() => {
+                res.status(200).json({
+                    message: 'delete success'
+                })
             })
             .catch((err) => {
-                res.status(400).json(err);
+                res.status(400).json({
+                    message: err.message
+                });
             })
     }
 
@@ -49,7 +53,9 @@ class UserController {
                 res.status(200).json(data);
             })
             .catch((err) => {
-                res.status(404).json(err);
+                res.status(404).json({
+                    message: err.message
+                });
             })
     }
 
@@ -59,12 +65,14 @@ class UserController {
                 res.status(200).json(data);
             })
             .catch((err) => {
-                res.status(404).json(err);
+                res.status(404).json({
+                    message: err.message
+                });
             })
     }
 
     static login(req, res) {
-        Users.findOne({email: req.body.email}).then((user) => {
+        Users.findOne({ email: req.body.email }).then((user) => {
             const pass = req.body.password;
             if (pass == user.password) {
                 var token = jwt.sign({ id: user.email, role: user.role }, process.env.SECRET_KEY);

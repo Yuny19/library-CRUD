@@ -2,6 +2,9 @@ const express = require('express');
 const ENV = require('dotenv');
 
 const userRouter = require('./routes/user.router');
+const booksRouter = require('./routes/books.router');
+const circularRouter = require('./routes/circular.router');
+
 
 ENV.config();
 
@@ -18,6 +21,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/', userRouter);
+app.use('/', booksRouter);
+app.use('/', circularRouter);
+
 
 app.get('*', (req, res) => {
     res.status(404).json({
