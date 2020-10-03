@@ -1,4 +1,6 @@
-const Users = require('../model/user.model');
+const Users = require('../models/user.model');
+const jwt = require('jsonwebtoken');
+
 
 class UserController {
     static create(req, res) {
@@ -61,8 +63,27 @@ class UserController {
             })
     }
 
-    static login(req, res){
-        
+    static login(req, res) {
+        Users.findOne({email: req.body.email}).then((user) => {
+            const pass = req.body.password;
+            if (pass == user.password) {
+                var token = jwt.sign({ id: user.email, role: user.role }, process.env.SECRET_KEY);
+
+                res.status(200).json({
+                    data: user,
+                    token: token
+                });
+
+            } else {
+                res.status(403).json({
+                    message: "Forbidden",
+                });
+            }
+        }).catch((err) => {
+            res.status(401).json({
+                message: err.message,
+            });
+        });
     }
 }
 
