@@ -1,13 +1,14 @@
 const router = require('express').Router();
 const circularController = require('../controllers/circular.controller');
+const authent = require('../middleware/authentication');
 
-router.get('/', circularController.read);
+router.get('/', authent, circularController.read);
 
-router.get('/:id', circularController.findById);
+router.get('/:id', authent, circularController.findById);
 
-router.post('/', circularController.create);
+router.post('/', authent, circularController.create);
 
-router.delete('/:id', circularController.delete);
+router.delete('/:id', authent, circularController.delete);
 
 // router.put('/:id', circularController.update);
 

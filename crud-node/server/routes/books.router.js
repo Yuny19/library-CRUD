@@ -1,15 +1,17 @@
 const router = require('express').Router();
 const booksController = require('../controllers/books.controller');
+const authent = require('../middleware/authentication');
 
-router.get('/', booksController.read);
 
-router.get('/:id', booksController.findById);
+router.get('/', authent, booksController.read);
 
-router.post('/', booksController.create);
+router.get('/:id', authent, booksController.findById);
 
-router.delete('/:id', booksController.delete);
+router.post('/', authent, booksController.create);
 
-router.put('/:id', booksController.update);
+router.delete('/:id', authent, booksController.delete);
+
+router.put('/:id', authent, booksController.update);
 
 module.exports = router;
 
