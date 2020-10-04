@@ -3,17 +3,17 @@ const userController = require('../controllers/user.controller');
 const authent = require('../middleware/authentication');
 const authori = require('../middleware/authorization');
 
-router.get('/', authent, userController.read);
+router.get('/user/', authent, userController.read);
 
-router.get('/:id', authent, userController.findById);
+router.get('/user/:id', authent, userController.findById);
 
-router.post('/', authent, authori, userController.create);
+router.post('/user/', authent, authori, userController.create);
 
-router.delete('/:id', authent, authori, userController.delete);
+router.delete('/user/:id', authent, authori, userController.delete);
 
-router.put('/:id', authent, authori, userController.update);
+router.put('/user/:id', authent, authori, userController.update);
 
-router.post('/login', userController.login);
+router.post('/user/login', userController.login);
 
 module.exports = router;
 
