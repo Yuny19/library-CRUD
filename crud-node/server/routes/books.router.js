@@ -4,15 +4,15 @@ const authent = require('../middleware/authentication');
 const authori = require('../middleware/authorization');
 
 
-router.get('/', authent, booksController.read);
+router.get('/books', authent, booksController.read);
 
-router.get('/:id', authent, authori, booksController.findById);
+router.get('/books/:id', authent, authori, booksController.findById);
 
-router.post('/', authent, authori, booksController.create);
+router.post('/books', authent, authori, booksController.create);
 
-router.delete('/:id', authent, authori, booksController.delete);
+router.delete('/books/:id', authent, authori, booksController.delete);
 
-router.put('/:id', authent, authori, booksController.update);
+router.put('/books/:id', authent, authori, booksController.update);
 
 module.exports = router;
 
