@@ -1,5 +1,6 @@
 const Users = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 
 class UserController {
@@ -48,9 +49,11 @@ class UserController {
     }
 
     static read(req, res) {
-        Users.find()
+        Users.find({})
             .then(data => {
-                res.status(200).json(data);
+                res.status(200).json({
+                    data: data
+                });
             })
             .catch((err) => {
                 res.status(404).json({
@@ -73,8 +76,10 @@ class UserController {
 
     static login(req, res) {
         Users.findOne({ email: req.body.email }).then((user) => {
-            const pass = req.body.password;
-            if (pass == user.password) {
+            // const pass = req.body.password;
+
+            const checkLogin = bcrypt.compareSync(req.body.password,user.password);
+            if (checkLogin) {
                 var token = jwt.sign({ id: user.email, role: user.role }, process.env.SECRET_KEY);
 
                 res.status(200).json({
