@@ -83,7 +83,6 @@ class UserController {
                 var token = jwt.sign({ id: user.email, role: user.role }, process.env.SECRET_KEY);
 
                 res.status(200).json({
-                    user: user,
                     token: token
                 });
 

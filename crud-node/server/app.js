@@ -4,6 +4,7 @@ const ENV = require('dotenv');
 const userRouter = require('./routes/user.router');
 const booksRouter = require('./routes/books.router');
 const circularRouter = require('./routes/circular.router');
+const axiosRouter = require('./routes/axios.router');
 
 
 ENV.config();
@@ -16,6 +17,7 @@ const mongoose = require('mongoose');
 mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
@@ -23,6 +25,7 @@ app.use(cors());
 app.use('/', userRouter);
 app.use('/', booksRouter);
 app.use('/', circularRouter);
+app.use('/', axiosRouter);
 
 
 app.get('*', (req, res) => {

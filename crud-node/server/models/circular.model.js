@@ -1,14 +1,28 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// const Users = require('./user.model');
-// const Books = require('./books.model');
 
 const CircularSchema = new Schema({
-    user: String,
-    book: String,
-    tglPinjam: Date,
-    tglKembali: Date
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+        required: true
+    },
+    books: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Books',
+            required: true
+        
+    }],
+    tglPinjam: {
+        type: Date,
+        setDefaultsOnInsert: true,
+        default: Date.now
+    },
+    tglKembali: {
+        type: Date,
+        required: true
+    }
 },
     {
         timestamps: true

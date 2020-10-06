@@ -2,8 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const BooksSchema = new Schema({
-    judul: String,
-    pengarang: String,
+    judul: {
+        type: String,
+        required: true
+    },
+    pengarang: {
+        type: String,
+        required: true
+    },
     penerbit: String,
     thTerbit: String
 },
